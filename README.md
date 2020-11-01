@@ -12,7 +12,7 @@ Commande | Utilité
 :------- | :------
 `!!help` | Affiche l'aide
 `!!alias <rid> <alias>` | Associe un alias à un `rid`
-`!!edt <rid\|alias> <date\|offset>` | Affiche l'emploi du temps de la ressource à la date donné. Le deuxième argument est soit une date (parsable en javascript), soit un décalage par rapport à la date actuelle.
+`!!edt <rid\|alias> <offset>` | Affiche l'emploi du temps de la ressource à la date donnée
 
 <br>
 
