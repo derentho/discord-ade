@@ -1,6 +1,5 @@
-import Axios from "axios";
 import { Message, MessageEmbed } from "discord.js";
-import { Course } from "../models/course";
+import CourseArray from "../models/course_array";
 import Command from "../utils/command";
 
 /**
@@ -27,22 +26,19 @@ export default class Edt extends Command {
     }
 
     const rid = this.context.getAlias(args[0]);
-    const content = await Axios.get(`${this.context.config.endpoint}/${rid}`);
-    const courses = content.data as Course[];
+    const content = await CourseArray.fromURL(
+      `${this.context.config.endpoint}/${rid}`
+    );
 
     const parsed = Number.parseInt(args[1]);
-    let day = new Date();
+    const day = new Date();
     if (!Number.isNaN(parsed)) {
       day.setDate(day.getDate() + parsed);
     }
 
     const embed = new MessageEmbed()
       .setTitle(`Cours du ${this.formatDate(day)}`);
-    courses.filter( c =>
-      new Date(c.start).getDate() === day.getDate() &&
-      new Date(c.start).getMonth() === day.getMonth() &&
-      new Date(c.start).getFullYear() === day.getFullYear()
-    ).map ( c => {
+    content.filterByDate(day).map ( c => {
       const s = new Date(c.start);
       const e = new Date(c.end);
       embed.addField(
@@ -56,12 +52,22 @@ export default class Edt extends Command {
 
     // --- Outils ---
 
+  /**
+   * Formate une date.
+   * 
+   * @param date La date à formater.
+   */
   private formatDate(date: Date): string {
     const day = `${date.getDate()}`.padStart(2, "0");
     const month = `${date.getMonth()}`.padStart(2, "0");
     return `${day}/${month}`;
   }
 
+  /**
+   * Formate une heure.
+   * 
+   * @param date La date à formater.
+   */
   private formatHour(date: Date): string {
     const hour = `${date.getHours()}`.padStart(2, "0");
     const minute = `${date.getMinutes()}`.padStart(2, "0");

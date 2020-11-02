@@ -40,6 +40,7 @@ export default class Context {
   /**
    * La configuration de l'application.
    */
+  // eslint-disable-next-line
   get config() {
     return config;
   }
