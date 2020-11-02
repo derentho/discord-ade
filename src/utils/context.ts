@@ -1,4 +1,3 @@
-import * as config from "../config.json";
 
 /**
  * Une classe contenant toutes les données de l'application.
