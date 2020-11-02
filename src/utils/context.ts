@@ -42,7 +42,11 @@ export default class Context {
    */
   // eslint-disable-next-line
   get config() {
-    return config;
+    return {
+      endpoint: "https://desolate-forest-13730.herokuapp.com",
+      prefix: "!!",
+      token: process.env.TOKEN
+    };
   }
 
   /**
