@@ -44,7 +44,7 @@ export default class Context {
     return {
       endpoint: "https://desolate-forest-13730.herokuapp.com",
       prefix: "!!",
-      token: process.env.TOKEN
+      token: process.env.TOKEN || ""
     };
   }
 
